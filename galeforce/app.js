@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var morgan = require('morgan')('dev');
+var flash = require('connect-flash');
 
 var logger = require('morgan');
 // var cookieParser = require('cookie-parser');
@@ -36,6 +37,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use('/', index);
 app.use('/users', users);
