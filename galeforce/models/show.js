@@ -14,7 +14,8 @@ var Show = new Schema({
     synopsis: String,
     dateStart: Date,
     dateEnd: Date,
-    image: Buffer
+    // change to buffer or gridFS later?
+    image: String, 
 });
 
 Show.plugin(urlSlugs('nameRomanized showID'));

@@ -14,26 +14,6 @@ router.get('/', function(req, res, next) {
     res.render('index', context);
 });
 
-router.get('/shows/:show', function(req, res, next) {
-    var show = req.params.show;
-    Show.findOne({
-        slug: show
-    }, function(err, foundShow, count) {
-        var usrShowRating = req.user.ratings.filter(function(usrShow){
-            if (usrShow.showID.toString() === foundShow.showID.toString()) {
-                return true;
-            }
-        })[0];
-        console.log(usrShowRating);
-        foundShow.usrRating = usrShowRating.rating;
-        if (foundShow.avgRating === -1) {
-            delete foundShow.avgRating;
-        }
-        console.log(foundShow);
-        res.render('show', foundShow);
-    });
-});
-
 router.get('/profile', function(req, res, next) {
 
 });

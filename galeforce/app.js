@@ -16,6 +16,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var add_show = require('./routes/add-show');
+var shows = require('./routes/shows');
 
 var app = express();
 app.use(morgan);
@@ -40,6 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+
 // handle login and registration
 app.use('/', index);
 
@@ -52,9 +54,10 @@ app.use(function(req, res, next) {
     }
 });
 
+// show detail page
+app.use('/shows', shows);
 // handle adding a new show to galeforce
 app.use('/add-show', add_show);
-
 app.use('/users', users);
 
 // passport configuration

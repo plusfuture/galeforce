@@ -87,10 +87,11 @@ router.post('/', function(req, res, next) {
                                             encoding: null
                                         }, function(imgErr, imgResp, imgBody) {
                                             if (!error && response.statusCode == 200) {
-                                                imgData = 'data:' + response.headers['content-type'] + ';base64,' + new Buffer(body).toString('base64');
+                                                imgData = new Buffer(body).toString('base64');
                                             } else {
                                                 imgData = 'placeholder.jpg';
                                             }
+                                            imgData = showToAdd.image;
                                             (new Show({
                                                 showID: showToAdd.id,
                                                 nameEnglish: showToAdd.english,
@@ -110,8 +111,8 @@ router.post('/', function(req, res, next) {
                                                     Show.findOne({
                                                         showID: showToAdd.id
                                                     }, function(newShowErr, foundShow, count) {
+                                                        console.log(foundShow);
                                                         var redirURL = '/shows/' + foundShow.slug;
-                                                        console.log('yay');
                                                         res.redirect(redirURL);
                                                     });
                                                 }
