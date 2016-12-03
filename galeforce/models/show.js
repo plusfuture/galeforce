@@ -11,11 +11,11 @@ var Show = new Schema({
         rating: Number
     }],
     avgRating: Number,
-    synposis: String,
+    synopsis: String,
     dateStart: Date,
     dateEnd: Date
 });
 
-Show.plugin(urlSlugs('nameEnglish'));
+Show.plugin(urlSlugs('nameRomanized'));
 
 module.exports = mongoose.model('Show', Show);
