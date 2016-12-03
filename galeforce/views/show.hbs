@@ -1,0 +1,28 @@
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-6">
+        <img class="img-responsive img-thumbnail" src="data:image/jpeg;base64, {{{image}}}">
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h2>{{nameRomanized}}</h2>
+        </div>
+        <h4>
+        <div class="row">
+            Aired: {{dateStart}}
+            <br>
+            Finished: {{dateEnd}}
+        </div>
+        <div class="row">
+            {{#if avgRating}}
+                Average rating: {{avgRating}}
+                <br>
+            {{/if}}
+            Your rating: {{usrRating}}
+        </div>
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <p class="lead">{{{synopsis}}}</p>
+</div>

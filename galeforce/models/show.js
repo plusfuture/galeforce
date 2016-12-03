@@ -13,9 +13,10 @@ var Show = new Schema({
     avgRating: Number,
     synopsis: String,
     dateStart: Date,
-    dateEnd: Date
+    dateEnd: Date,
+    image: Buffer
 });
 
-Show.plugin(urlSlugs('nameRomanized'));
+Show.plugin(urlSlugs('nameRomanized showID'));
 
 module.exports = mongoose.model('Show', Show);
