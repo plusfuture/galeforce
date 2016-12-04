@@ -8,14 +8,29 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var context = {};
-    context.title = 'galeforce';
-    context.user = req.user;
-    res.render('index', context);
+    Show.find({}, function(err, shows, count) {
+        /*if (err) {
+            req.flash('error', err.toString());
+            return res.redirect('/');
+        }*/
+        var context = {};
+        context.shows = shows;
+        context.title = 'galeforce';
+        context.user = req.user;
+        res.render('index', context);
+    });
 });
 
 router.get('/profile', function(req, res, next) {
 
+});
+
+router.post('/search', function(req, res, next) {
+    //console.log(req.body);
+    Show.find({ nameRomanized: { '$regex': req.body.search, '$options': 'i'} }, function(err, showsList, count) {
+        //console.log(JSON.stringify(showsList, null, 4));
+        res.json({shows: showsList});
+    });
 });
 
 // login and register code courtesy of http://mherman.org/blog/2015/01/31/local-authentication-with-passport-and-express-4

@@ -45,6 +45,7 @@ router.post('/', function(req, res, next) {
                     showName = showName.substring(0, paramBeginIdx);
                 }
                 console.log(showName);
+                showName.replace(/^a-zA-Z\d/, '+');
                 request.get("https://myanimelist.net/api/anime/search.xml?q=" + showName, {
                     auth: {
                         'user': 'galeforce_arecs',
@@ -53,16 +54,24 @@ router.post('/', function(req, res, next) {
                     }
                 }, function(error, response, body) {
                     if (error) {
+                        console.log(error.toString());
                         req.flash('error', error.toString());
                         res.redirect('/add-show');
                         return;
                     } else {
                         parseString(body, function(err, result) {
                             if (err) {
-                                req.flash('error', error.toString());
+                                console.log(err);
+                                req.flash('error', err.toString());
                                 res.redirect('/add-show');
                                 return;
                             } else {
+                                if (result === undefined) {
+                                    console.log('show not found');
+                                    req.flash('error', 'show not found');
+                                    res.redirect('/add-show');
+                                    return;
+                                }
                                 if (result.hasOwnProperty('anime')) {
                                     if (result.anime.hasOwnProperty('entry')) {
                                         var showToAdd = result.anime.entry.filter(function(show) {
@@ -82,6 +91,7 @@ router.post('/', function(req, res, next) {
                                         }
                                         showToAdd.id = parseInt(showToAdd.id, 10);
                                         var imgData;
+                                        // we don't use this request result yet
                                         request.get({
                                             uri: showToAdd.image,
                                             encoding: null
@@ -92,6 +102,13 @@ router.post('/', function(req, res, next) {
                                                 imgData = 'placeholder.jpg';
                                             }
                                             imgData = showToAdd.image;
+                                            console.log(JSON.stringify(showToAdd));
+                                            if (showToAdd.start_date.startsWith('0000')) {
+                                                showToAdd.start_date = ('9999-01-01');
+                                            }
+                                            if (showToAdd.end_date.startsWith('0000')) {
+                                                showToAdd.end_date = ('9999-01-01');
+                                            }
                                             (new Show({
                                                 showID: showToAdd.id,
                                                 nameEnglish: showToAdd.english,
@@ -104,7 +121,9 @@ router.post('/', function(req, res, next) {
                                                 image: imgData
                                             })).save(function(err, show, count) {
                                                 if (err) {
-                                                    req.flash('error', error.toString());
+                                                    console.log('error');
+                                                    console.log(err.toString());
+                                                    req.flash('error', err.toString());
                                                     res.redirect('/add-show');
                                                     return;
                                                 } else {
