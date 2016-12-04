@@ -6,7 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "@sep/ger": "0.0.97",
     "body-parser": "~1.15.2",
     "cheerio": "^0.22.0",
     "connect-flash": "^0.1.1",

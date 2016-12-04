@@ -45,7 +45,9 @@ router.post('/', function(req, res, next) {
                     showName = showName.substring(0, paramBeginIdx);
                 }
                 console.log(showName);
-                showName.replace(/^a-zA-Z\d/, '+');
+                showName = showName.replace(/[^a-z0-9]/gi, '_');
+                showName = showName.substring(0, showName.indexOf('_'));
+                console.log(showName);
                 request.get("https://myanimelist.net/api/anime/search.xml?q=" + showName, {
                     auth: {
                         'user': 'galeforce_arecs',
@@ -66,19 +68,23 @@ router.post('/', function(req, res, next) {
                                 res.redirect('/add-show');
                                 return;
                             } else {
-                                if (result === undefined) {
+                                if (result === undefined || result === null) {
                                     console.log('show not found');
                                     req.flash('error', 'show not found');
                                     res.redirect('/add-show');
                                     return;
                                 }
+                                console.log(result);
+                                console.log('Show ID is: ' + showID);
                                 if (result.hasOwnProperty('anime')) {
                                     if (result.anime.hasOwnProperty('entry')) {
                                         var showToAdd = result.anime.entry.filter(function(show) {
                                             if (show.id.toString() === showID.toString())
                                                 return true;
                                         });
+                                        console.log(JSON.stringify(showToAdd, null, 4));
                                         showToAdd = showToAdd[0];
+                                        console.log(JSON.stringify(showToAdd, null, 4));
                                         Object.keys(showToAdd).forEach(function(key) {
                                             if (Array.isArray(showToAdd[key])) {
                                                 showToAdd[key] = showToAdd[key][0];
@@ -103,10 +109,10 @@ router.post('/', function(req, res, next) {
                                             }
                                             imgData = showToAdd.image;
                                             console.log(JSON.stringify(showToAdd));
-                                            if (showToAdd.start_date.startsWith('0000')) {
+                                            if (showToAdd.start_date.indexOf('0000') == 0) {
                                                 showToAdd.start_date = ('9999-01-01');
                                             }
-                                            if (showToAdd.end_date.startsWith('0000')) {
+                                            if (showToAdd.end_date.indexOf('0000') == 0) {
                                                 showToAdd.end_date = ('9999-01-01');
                                             }
                                             (new Show({
