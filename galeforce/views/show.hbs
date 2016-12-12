@@ -1,3 +1,5 @@
+<script src="/javascripts/rating.js"></script>
+
 <div class="container-fluid">
 <div class="row">
     <div class="col-md-3">
@@ -15,13 +17,20 @@
         </div>
         <br>
         <div class="row">
-            <strong>Average rating</strong>: {{showAvgRating}}
+            <strong>Average rating</strong>:             
+                <div id = "showAvgRatingNum">{{showAvgRating}}</div>
+                <div id = "showAvgRating" class = "rating-container-showAvg">
+                </div>
             <br><br>
-                <strong>Your rating</strong>: {{usrRating}} <!-- change this to stars --!>
+            <strong>Your rating</strong>: 
+                <div id = "usrRatingNum">{{usrRating}}</div>
+                <div id = "usrRating" class = "rating-container-usrRating">
+                </div>
         </div>
         </h4>
     </div>
 </div>
+<script src="/javascripts/showRating.js"></script>
 <br>
 <br>
 <div class="row">
