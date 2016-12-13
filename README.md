@@ -57,7 +57,7 @@ The site will provide toplists for users; that is, a list of all shows sorted by
 <h2>Research Topics</h2>
 >1. Integrate user authentication (6 points)
 ..* User authentication enables users to maintain their own personal set of ratings, and be shown custom recommendations based off of those ratings. Authentication is also important to protect user privacy. Some possible modules are PassportJS or Stormpath. I will be integrating user sign-up and login.
->2. Recommendation engine (6 points)
-..* The recommendation engine is probably the single, most important feature of galeforce. The whole point of the site is to generate recommendations for users, so this part better be spectacular. Some possible modules are GER, Raccoon, likely, collaborative_filtering, mongoose-mlt, and recommend. Most likely it will be a one collaborative filtering algorithm and one bag-of-words algorithm for 0-day recommendations.
+>2. MyAnimeList API (4 points)
+..* The MyAnimeList (MAL) API documented (https://myanimelist.net/modules.php?go=api "here") is an XML-based API for pulling anime show data from MAL. galeforce uses this website to populate its own anime database, and relies on users to submit MAL links and then dynamically query the API, parse the XML, and place relevant information into MongoDB.
 
 
