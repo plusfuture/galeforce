@@ -119,7 +119,7 @@ router.post('/', function(req, res, next) {
                                                 showID: showToAdd.id,
                                                 nameEnglish: showToAdd.english,
                                                 nameRomanized: showToAdd.title,
-                                                ratings: [{}],
+                                                ratings: [],
                                                 avgRating: -1,
                                                 synopsis: showToAdd.synopsis,
                                                 dateStart: showToAdd.start_date,

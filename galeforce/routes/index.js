@@ -17,6 +17,7 @@ router.get('/', function(req, res, next) {
         context.shows = shows;
         context.title = 'galeforce';
         context.user = req.user;
+        console.log(req.user);
         res.render('index', context);
     });
 });

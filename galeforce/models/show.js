@@ -7,7 +7,7 @@ var Show = new Schema({
     nameEnglish: String,
     nameRomanized: String,
     ratings: [{
-        userID: Number,
+        userID: String,
         rating: Number
     }],
     avgRating: Number,

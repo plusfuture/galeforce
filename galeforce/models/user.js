@@ -4,7 +4,6 @@ var mongoose = require('mongoose'),
 
 var User = new Schema({
     // future fields could include MAL account for auto-integration
-    userID: Number,
     email: String,
     ratings: [{
         rating: Number,
