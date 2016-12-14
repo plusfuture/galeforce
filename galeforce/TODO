@@ -1,0 +1,11 @@
+remove request package and replace with superagent or urllib due to licensing issues
+
+migrate to ec2
+
+update star ratings to persist to mongodb
+
+create mongodb index on show names and user IDs for querying
+
+create persistent session store, probably using redis or mongoDB
+
+recommendation engine!
